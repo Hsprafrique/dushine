@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DUSHINE — Burundi-Born. Vancouver-Raised. Global Sound.</title>
+<meta name="description" content="Official website of Dushine — hip hop artist. Born in Burundi, raised in Vancouver. Stream music, watch videos, shop merch, and get tour dates."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #080808;
+    --dark: #111111;
+    --surface: #1A1A1A;
+    --border: #2A2A2A;
+    --gold: #C9A84C;
+    --gold-light: #E8C76A;
+    --white: #F0EDE6;
+    --muted: #888888;
+    --red: #D14040;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    opacity: 0.6;
+  }
+  body:has(a:hover) .cursor-ring,
+  body:has(button:hover) .cursor-ring { width: 56px; height: 56px; opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(8,8,8,0.97); border-bottom: 1px solid var(--border); }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 6px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--gold); color: var(--black);
+    padding: 10px 24px; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    border: none; cursor: none; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 0 48px; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 40%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--gold) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 24px; opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 14vw, 180px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-title .line2 { color: var(--gold); }
+  .hero-subtitle {
+    max-width: 480px; margin-top: 28px;
+    font-size: 15px; line-height: 1.8; color: var(--muted);
+    font-weight: 300; opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; margin-top: 40px;
+    opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--black);
+    padding: 16px 40px; font-size: 12px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    border: none; cursor: none; text-decoration: none;
+    display: inline-block; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--white);
+    padding: 16px 40px; font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    background: transparent; cursor: none; text-decoration: none;
+    display: inline-block; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 48px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 3px; color: var(--muted);
+    text-transform: uppercase;
+    opacity: 0; animation: fadeUp 0.8s 1.1s forwards;
+  }
+  .scroll-line {
+    width: 48px; height: 1px; background: var(--gold);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%; background: var(--white);
+    animation: slideRight 1.8s infinite;
+  }
+  .hero-stats {
+    position: absolute; right: 48px; bottom: 40px;
+    display: flex; gap: 48px;
+    opacity: 0; animation: fadeUp 0.8s 1.1s forwards;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; letter-spacing: 2px; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--gold); padding: 14px 0;
+    overflow: hidden; white-space: nowrap;
+  }
+  .ticker-inner { display: inline-flex; animation: ticker 20s linear infinite; }
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px; letter-spacing: 4px; color: var(--black);
+    padding: 0 32px;
+  }
+  .ticker-sep { color: rgba(0,0,0,0.3); }
+
+  /* MUSIC PLAYER */
+  #music {
+    padding: 100px 48px;
+    background: var(--dark);
+  }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 80px); line-height: 1;
+    letter-spacing: 1px;
+  }
+  .music-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 64px; align-items: start; }
+  .track-list { display: flex; flex-direction: column; gap: 4px; }
+  .track-item {
+    display: flex; align-items: center; gap: 20px;
+    padding: 20px 24px; border: 1px solid transparent;
+    cursor: none; transition: all 0.2s; position: relative; overflow: hidden;
+  }
+  .track-item::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--gold);
+    transform: scaleY(0); transition: transform 0.2s;
+  }
+  .track-item:hover, .track-item.active {
+    background: var(--surface); border-color: var(--border);
+  }
+  .track-item:hover::before, .track-item.active::before { transform: scaleY(1); }
+  .track-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; color: var(--muted); width: 24px; flex-shrink: 0;
+  }
+  .track-item.active .track-num { color: var(--gold); }
+  .track-play-icon { width: 20px; flex-shrink: 0; }
+  .track-play-icon svg { fill: var(--muted); transition: fill 0.2s; }
+  .track-item:hover .track-play-icon svg,
+  .track-item.active .track-play-icon svg { fill: var(--gold); }
+  .track-info { flex: 1; }
+  .track-name { font-size: 14px; font-weight: 600; }
+  .track-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .track-duration {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; color: var(--muted);
+  }
+  .track-bars {
+    display: flex; gap: 2px; align-items: flex-end; height: 20px; width: 24px;
+    visibility: hidden;
+  }
+  .track-item.active .track-bars { visibility: visible; }
+  .track-bars span {
+    width: 3px; background: var(--gold); border-radius: 2px;
+    animation: soundBars 0.8s ease-in-out infinite alternate;
+  }
+  .track-bars span:nth-child(2) { animation-delay: 0.15s; }
+  .track-bars span:nth-child(3) { animation-delay: 0.3s; }
+
+  .player-widget {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 40px; position: sticky; top: 100px;
+  }
+  .player-cover {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--border) 0%, #222 100%);
+    position: relative; overflow: hidden; margin-bottom: 32px;
+  }
+  .player-cover-art {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .player-cover-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 60%);
+  }
+  .player-cover-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; letter-spacing: 8px; color: rgba(201,168,76,0.15);
+  }
+  .player-info { margin-bottom: 28px; }
+  .player-track-name { font-size: 20px; font-weight: 700; }
+  .player-track-meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .player-progress-wrap {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .player-time { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+  .progress-bar {
+    flex: 1; height: 3px; background: var(--border); cursor: none; position: relative;
+  }
+  .progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 0.1s; }
+  .player-controls { display: flex; align-items: center; justify-content: center; gap: 32px; }
+  .ctrl-btn {
+    background: none; border: none; cursor: none;
+    color: var(--muted); transition: color 0.2s; padding: 4px;
+  }
+  .ctrl-btn:hover { color: var(--white); }
+  .ctrl-btn.play-btn {
+    width: 56px; height: 56px;
+    background: var(--gold); color: var(--black);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  }
+  .ctrl-btn.play-btn:hover { background: var(--gold-light); transform: scale(1.05); }
+  .player-viz {
+    display: flex; gap: 2px; align-items: flex-end; height: 40px;
+    margin-top: 24px; opacity: 0.5;
+  }
+  .viz-bar {
+    flex: 1; background: var(--gold); border-radius: 2px 2px 0 0;
+    min-height: 4px; transition: height 0.15s;
+  }
+
+  /* ABOUT */
+  #about { padding: 100px 48px; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
+  .about-img-wrap { position: relative; }
+  .about-img {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--surface), var(--border));
+    position: relative; overflow: hidden;
+  }
+  .about-img-inner {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #1a1a1a 0%, #252525 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-img-placeholder {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px; color: rgba(201,168,76,0.1); letter-spacing: 4px;
+  }
+  .about-img-tag {
+    position: absolute; bottom: 24px; left: 24px;
+    background: var(--gold); color: var(--black);
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 8px 16px; text-transform: uppercase;
+  }
+  .about-accent {
+    position: absolute; top: -16px; right: -16px;
+    width: 120px; height: 120px;
+    border: 2px solid var(--gold); opacity: 0.3;
+    z-index: -1;
+  }
+  .about-text .section-title { margin-bottom: 24px; }
+  .about-body { font-size: 15px; line-height: 1.9; color: #AAAAAA; font-weight: 300; }
+  .about-body p + p { margin-top: 18px; }
+  .about-body strong { color: var(--white); font-weight: 600; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  .about-tag {
+    border: 1px solid var(--border); padding: 7px 16px;
+    font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
+  }
+
+  /* VIDEOS */
+  #videos { padding: 100px 48px; background: var(--dark); }
+  .videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+  .video-card {
+    position: relative; overflow: hidden; cursor: none;
+    aspect-ratio: 16/10;
+    background: var(--surface);
+  }
+  .video-thumb {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .video-card:hover .video-thumb { transform: scale(1.06); }
+  .video-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.2) 60%, transparent 100%);
+    transition: background 0.3s;
+  }
+  .video-card:hover .video-overlay { background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.4) 100%); }
+  .video-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 60px; height: 60px;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: all 0.3s;
+  }
+  .video-card:hover .video-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .video-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px;
+  }
+  .video-label { font-size: 10px; letter-spacing: 2.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .video-title { font-size: 15px; font-weight: 600; }
+  .video-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .video-thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: rgba(201,168,76,0.1);
+  }
+
+  /* TOUR */
+  #tour { padding: 100px 48px; }
+  .tour-list { margin-top: 64px; display: flex; flex-direction: column; gap: 2px; }
+  .tour-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr auto;
+    gap: 24px; align-items: center;
+    padding: 28px 32px;
+    border: 1px solid var(--border);
+    background: var(--dark);
+    cursor: none; transition: all 0.2s;
+  }
+  .tour-item:hover { border-color: var(--gold); background: var(--surface); }
+  .tour-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px; color: var(--gold);
+    line-height: 1.1;
+  }
+  .tour-date-day { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .tour-venue { font-size: 15px; font-weight: 600; }
+  .tour-city { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .tour-support { font-size: 12px; color: var(--muted); }
+  .tour-support span { color: var(--white); font-size: 13px; display: block; margin-top: 2px; }
+  .tour-badge {
+    display: inline-block; padding: 5px 12px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+  }
+  .badge-avail { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .badge-sold { background: rgba(255,255,255,0.06); color: var(--muted); }
+  .badge-few { background: rgba(209,64,64,0.15); color: var(--red); }
+  .tour-ticket {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 12px 24px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; cursor: none; transition: all 0.2s;
+  }
+  .tour-ticket:hover { background: var(--gold-light); }
+  .tour-ticket:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+
+  /* MERCH */
+  #merch { padding: 100px 48px; background: var(--dark); }
+  .merch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 64px; }
+  .merch-card { cursor: none; }
+  .merch-img {
+    aspect-ratio: 1; background: var(--surface);
+    border: 1px solid var(--border); overflow: hidden;
+    position: relative;
+  }
+  .merch-img:hover .merch-overlay { opacity: 1; }
+  .merch-overlay {
+    position: absolute; inset: 0;
+    background: rgba(8,8,8,0.7);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .merch-quick {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 12px 24px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; cursor: none;
+  }
+  .merch-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+  }
+  .merch-icon { font-size: 48px; opacity: 0.2; }
+  .merch-title { font-size: 13px; font-weight: 600; margin-top: 14px; }
+  .merch-price { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--gold); margin-top: 6px; }
+  .merch-sold-tag { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+  /* EMAIL SIGNUP */
+  .signup-section {
+    padding: 100px 48px;
+    background: linear-gradient(135deg, var(--dark) 0%, rgba(201,168,76,0.05) 100%);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .signup-section .section-title { font-size: clamp(40px, 5vw, 72px); }
+  .signup-section p { font-size: 16px; color: var(--muted); margin-top: 16px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .signup-form { display: flex; gap: 0; max-width: 480px; margin: 40px auto 0; }
+  .signup-input {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    color: var(--white); padding: 16px 20px; font-size: 14px; font-family: 'Inter', sans-serif;
+    outline: none;
+  }
+  .signup-input::placeholder { color: var(--muted); }
+  .signup-input:focus { border-color: var(--gold); }
+  .signup-btn {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 16px 28px; font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; cursor: none; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .signup-btn:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    padding: 64px 48px 40px;
+    border-top: 1px solid var(--border);
+    background: var(--black);
+  }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px; letter-spacing: 6px; color: var(--white);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .footer-links { display: flex; gap: 64px; }
+  .footer-col h4 { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  .footer-col a { display: block; color: var(--white); text-decoration: none; font-size: 14px; margin-bottom: 12px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border); }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+  .socials { display: flex; gap: 20px; }
+  .social-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--muted); transition: all 0.2s;
+    font-size: 14px;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes slideRight {
+    from { left: -100%; }
+    to { left: 100%; }
+  }
+  @keyframes soundBars {
+    from { height: 4px; }
+    to { height: 100%; }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulseGold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.3); }
+    50% { box-shadow: 0 0 0 12px rgba(201,168,76,0); }
+  }
+
+  /* VINYL */
+  .vinyl-wrap { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); }
+  .vinyl {
+    width: clamp(280px, 25vw, 400px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle, #1a1a1a 0%, #111 5%, #1e1e1e 6%, #0d0d0d 8%);
+    position: relative;
+    animation: spin 8s linear infinite paused;
+    box-shadow: 0 0 80px rgba(201,168,76,0.12), inset 0 0 40px rgba(0,0,0,0.5);
+  }
+  .vinyl.spinning { animation-play-state: running; }
+  .vinyl::after {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 25%; aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold) 0%, #8A6520 100%);
+    box-shadow: 0 0 20px rgba(201,168,76,0.3);
+  }
+  .vinyl-reflection {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 50%);
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px; }
+    .hero-stats, .vinyl-wrap { display: none; }
+    .music-grid, .about-grid { grid-template-columns: 1fr; }
+    .videos-grid { grid-template-columns: 1fr 1fr; }
+    .merch-grid { grid-template-columns: 1fr 1fr; }
+    .tour-item { grid-template-columns: 60px 1fr auto; }
+    .tour-support, .tour-badge { display: none; }
+    #music, #about, #videos, #tour, #merch, .signup-section { padding: 64px 24px; }
+    footer { padding: 48px 24px 32px; }
+    .footer-top { flex-direction: column; gap: 40px; }
+    .signup-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">DU<span>SHINE</span></a>
+  <ul class="nav-links">
+    <li><a href="#music">Music</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#tour">Tour</a></li>
+    <li><a href="#merch">Merch</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#tour" class="nav-cta">Get Tickets</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="vinyl-wrap">
+    <div class="vinyl" id="vinyl"><div class="vinyl-reflection"></div></div>
+  </div>
+  <p class="hero-eyebrow">✦ Official Website</p>
+  <h1 class="hero-title">
+    DU<br><span class="line2">SHINE</span>
+  </h1>
+  <p class="hero-subtitle">
+    Born in Burundi. Raised in Vancouver. Shaped by two worlds.
+    Hip hop that carries the weight of every border crossed.
+  </p>
+  <div class="hero-actions">
+    <a href="#music" class="btn-primary">Stream Now</a>
+    <a href="#tour" class="btn-outline">Tour Dates</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">2M+</div>
+      <div class="stat-label">Streams</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">14</div>
+      <div class="stat-label">Shows</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Projects</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item">SET ME FREE <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">RELATIONSHIPS <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">RAYCAM PROJECT <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">BURUNDI <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">VANCOUVER <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">GLOBAL SOUND <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">NEW MUSIC 2025 <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">SET ME FREE <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">RELATIONSHIPS <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">RAYCAM PROJECT <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">BURUNDI <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">VANCOUVER <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">GLOBAL SOUND <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">NEW MUSIC 2025 <span class="ticker-sep">•</span></span>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<section id="music">
+  <div class="reveal">
+    <p class="section-eyebrow">Latest Drops</p>
+    <h2 class="section-title">Discography</h2>
+  </div>
+  <div class="music-grid reveal">
+    <div class="track-list" id="trackList">
+      <div class="track-item active" data-track="0" onclick="selectTrack(0)">
+        <span class="track-num">01</span>
+        <span class="track-play-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2l10 6-10 6z"/></svg></span>
+        <div class="track-info">
+          <div class="track-name">Set Me Free</div>
+          <div class="track-meta">Raycam Project · 2024</div>
+        </div>
+        <div class="track-bars">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+        </div>
+        <span class="track-duration">3:42</span>
+      </div>
+      <div class="track-item" data-track="1" onclick="selectTrack(1)">
+        <span class="track-num">02</span>
+        <span class="track-play-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2l10 6-10 6z"/></svg></span>
+        <div class="track-info">
+          <div class="track-name">Relationships</div>
+          <div class="track-meta">Single · 2023</div>
+        </div>
+        <div class="track-bars">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+        </div>
+        <span class="track-duration">4:01</span>
+      </div>
+      <div class="track-item" data-track="2" onclick="selectTrack(2)">
+        <span class="track-num">03</span>
+        <span class="track-play-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2l10 6-10 6z"/></svg></span>
+        <div class="track-info">
+          <div class="track-name">Raycam (Intro)</div>
+          <div class="track-meta">Raycam Project · 2024</div>
+        </div>
+        <div class="track-bars">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+        </div>
+        <span class="track-duration">2:58</span>
+      </div>
+      <div class="track-item" data-track="3" onclick="selectTrack(3)">
+        <span class="track-num">04</span>
+        <span class="track-play-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2l10 6-10 6z"/></svg></span>
+        <div class="track-info">
+          <div class="track-name">Buja to Van</div>
+          <div class="track-meta">Single · 2023</div>
+        </div>
+        <div class="track-bars">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+        </div>
+        <span class="track-duration">3:27</span>
+      </div>
+      <div class="track-item" data-track="4" onclick="selectTrack(4)">
+        <span class="track-num">05</span>
+        <span class="track-play-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2l10 6-10 6z"/></svg></span>
+        <div class="track-info">
+          <div class="track-name">No Filter</div>
+          <div class="track-meta">Raycam Project · 2024</div>
+        </div>
+        <div class="track-bars">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+        </div>
+        <span class="track-duration">3:55</span>
+      </div>
+      <div class="track-item" data-track="5" onclick="selectTrack(5)">
+        <span class="track-num">06</span>
+        <span class="track-play-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2l10 6-10 6z"/></svg></span>
+        <div class="track-info">
+          <div class="track-name">Legacy</div>
+          <div class="track-meta">Single · 2024</div>
+        </div>
+        <div class="track-bars">
+          <span style="height:60%"></span><span style="height:100%"></span><span style="height:40%"></span>
+        </div>
+        <span class="track-duration">4:18</span>
+      </div>
+    </div>
+
+    <div class="player-widget">
+      <div class="player-cover">
+        <div class="player-cover-placeholder" id="playerArt">D</div>
+        <div class="player-cover-overlay"></div>
+      </div>
+      <div class="player-info">
+        <div class="player-track-name" id="playerName">Set Me Free</div>
+        <div class="player-track-meta" id="playerMeta">Raycam Project · 2024</div>
+      </div>
+      <div class="player-progress-wrap">
+        <span class="player-time" id="playerTime">0:00</span>
+        <div class="progress-bar" id="progressBar" onclick="seekTo(event)">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="player-time" id="playerDuration">3:42</span>
+      </div>
+      <div class="player-controls">
+        <button class="ctrl-btn" onclick="prevTrack()" title="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="ctrl-btn" onclick="nextTrack()" title="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.5 2.14-5.5 2.14V9.86zM16 6h2v12h-2z"/></svg>
+        </button>
+      </div>
+      <div class="player-viz" id="playerViz"></div>
+      <div style="margin-top:24px; display:flex; gap:10px;">
+        <a href="https://open.spotify.com" target="_blank" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--border); padding:12px; text-decoration:none; color:var(--muted); font-size:12px; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;" onmouseover="this.style.borderColor='#1DB954';this.style.color='#1DB954'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          ● Spotify
+        </a>
+        <a href="https://music.apple.com" target="_blank" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--border); padding:12px; text-decoration:none; color:var(--muted); font-size:12px; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;" onmouseover="this.style.borderColor='#FC3C44';this.style.color='#FC3C44'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          ♪ Apple Music
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-eyebrow">The Story</p>
+    <h2 class="section-title">Who is Dushine</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-img-wrap">
+      <div class="about-img">
+        <div class="about-img-inner">
+          <div class="about-img-placeholder">D</div>
+        </div>
+      </div>
+      <div class="about-img-tag">Burundi · Vancouver</div>
+      <div class="about-accent"></div>
+    </div>
+    <div class="about-text">
+      <h3 class="section-title">Born in Bujumbura.<br><span style="color:var(--gold)">Raised on Rain.</span></h3>
+      <div class="about-body">
+        <p>
+          Dushine is a <strong>hip hop artist from Burundi</strong>, now based in Vancouver, Canada — 
+          bridging two worlds that rarely collide in music. His sound carries the warmth 
+          of East African rhythm and the sharp, rain-soaked edge of the Pacific Northwest.
+        </p>
+        <p>
+          His debut project, <strong>Raycam</strong>, named after the community center that gave him 
+          his first stage, introduced a storyteller unafraid to be vulnerable. 
+          Tracks like <strong>"Set Me Free"</strong> and <strong>"Relationships"</strong> have earned him a 
+          dedicated following across Canada and beyond.
+        </p>
+        <p>
+          Dushine's music doesn't fit neatly in one lane — it's personal, political, and 
+          deeply human. He writes about immigration, identity, love, and the hustle of 
+          building something real from nothing.
+        </p>
+      </div>
+      <div class="about-tags">
+        <span class="about-tag">Hip Hop</span>
+        <span class="about-tag">R&B Fusion</span>
+        <span class="about-tag">Conscious Rap</span>
+        <span class="about-tag">Vancouver</span>
+        <span class="about-tag">Burundian</span>
+        <span class="about-tag">Independent</span>
+      </div>
+      <div style="margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="#music" class="btn-primary">Hear the Music</a>
+        <a href="https://instagram.com" target="_blank" class="btn-outline">Follow on IG</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="reveal">
+    <p class="section-eyebrow">Visual Work</p>
+    <h2 class="section-title">Music Videos</h2>
+  </div>
+  <div class="videos-grid reveal">
+    <div class="video-card" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+      <div class="video-thumb-placeholder" style="background:linear-gradient(135deg,#1a1310,#2a1f10)">
+        <span style="font-family:'Bebas Neue';font-size:40px;color:rgba(201,168,76,0.15)">▶ SET ME FREE</span>
+      </div>
+      <div class="video-overlay"></div>
+      <div class="video-play">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-info">
+        <div class="video-label">Official Video</div>
+        <div class="video-title">Set Me Free</div>
+        <div class="video-meta">2024 · 3:42</div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+      <div class="video-thumb-placeholder" style="background:linear-gradient(135deg,#101a13,#1a2a1f)">
+        <span style="font-family:'Bebas Neue';font-size:32px;color:rgba(201,168,76,0.15)">▶ RELATIONSHIPS</span>
+      </div>
+      <div class="video-overlay"></div>
+      <div class="video-play">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-info">
+        <div class="video-label">Official Video</div>
+        <div class="video-title">Relationships</div>
+        <div class="video-meta">2023 · 4:01</div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+      <div class="video-thumb-placeholder" style="background:linear-gradient(135deg,#101318,#1a1f2a)">
+        <span style="font-family:'Bebas Neue';font-size:30px;color:rgba(201,168,76,0.15)">▶ RAYCAM INTRO</span>
+      </div>
+      <div class="video-overlay"></div>
+      <div class="video-play">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-info">
+        <div class="video-label">Visual</div>
+        <div class="video-title">Raycam (Intro)</div>
+        <div class="video-meta">2024 · 2:58</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:40px;text-align:center;" class="reveal">
+    <a href="https://youtube.com/@dushine" target="_blank" class="btn-outline">View All on YouTube →</a>
+  </div>
+</section>
+
+<!-- TOUR -->
+<section id="tour">
+  <div class="reveal">
+    <p class="section-eyebrow">Live</p>
+    <h2 class="section-title">Tour Dates</h2>
+  </div>
+  <div class="tour-list reveal">
+    <div class="tour-item">
+      <div class="tour-date">
+        <div style="font-size:13px;color:var(--muted);letter-spacing:1px;">SEP</div>
+        <div>06</div>
+      </div>
+      <div>
+        <div class="tour-venue">Celebrities Nightclub</div>
+        <div class="tour-city">Vancouver, BC</div>
+      </div>
+      <div class="tour-support"><span>Supporting: Local Lineup</span>Doors 8PM</div>
+      <div><span class="tour-badge badge-avail">Available</span></div>
+      <button class="tour-ticket">Buy Tickets</button>
+    </div>
+    <div class="tour-item">
+      <div class="tour-date">
+        <div style="font-size:13px;color:var(--muted);letter-spacing:1px;">SEP</div>
+        <div>20</div>
+      </div>
+      <div>
+        <div class="tour-venue">Biltmore Cabaret</div>
+        <div class="tour-city">Vancouver, BC</div>
+      </div>
+      <div class="tour-support"><span>Headline Show</span>Doors 9PM</div>
+      <div><span class="tour-badge badge-few">Few Left</span></div>
+      <button class="tour-ticket">Buy Tickets</button>
+    </div>
+    <div class="tour-item">
+      <div class="tour-date">
+        <div style="font-size:13px;color:var(--muted);letter-spacing:1px;">OCT</div>
+        <div>11</div>
+      </div>
+      <div>
+        <div class="tour-venue">Fortune Sound Club</div>
+        <div class="tour-city">Vancouver, BC</div>
+      </div>
+      <div class="tour-support"><span>Album Release</span>Doors 8PM</div>
+      <div><span class="tour-badge badge-avail">Available</span></div>
+      <button class="tour-ticket">Buy Tickets</button>
+    </div>
+    <div class="tour-item">
+      <div class="tour-date">
+        <div style="font-size:13px;color:var(--muted);letter-spacing:1px;">OCT</div>
+        <div>25</div>
+      </div>
+      <div>
+        <div class="tour-venue">Phoenix Concert Theatre</div>
+        <div class="tour-city">Toronto, ON</div>
+      </div>
+      <div class="tour-support"><span>With Special Guest</span>Doors 8PM</div>
+      <div><span class="tour-badge badge-sold">Sold Out</span></div>
+      <button class="tour-ticket" disabled>Sold Out</button>
+    </div>
+    <div class="tour-item">
+      <div class="tour-date">
+        <div style="font-size:13px;color:var(--muted);letter-spacing:1px;">NOV</div>
+        <div>08</div>
+      </div>
+      <div>
+        <div class="tour-venue">Le National</div>
+        <div class="tour-city">Montreal, QC</div>
+      </div>
+      <div class="tour-support"><span>Headline</span>Doors 9PM</div>
+      <div><span class="tour-badge badge-avail">Available</span></div>
+      <button class="tour-ticket">Buy Tickets</button>
+    </div>
+  </div>
+</section>
+
+<!-- MERCH -->
+<section id="merch">
+  <div class="reveal">
+    <p class="section-eyebrow">Shop</p>
+    <h2 class="section-title">Merch</h2>
+  </div>
+  <div class="merch-grid reveal">
+    <div class="merch-card">
+      <div class="merch-img">
+        <div class="merch-placeholder" style="background:linear-gradient(135deg,#181818,#222)">
+          <span class="merch-icon">👕</span>
+          <span style="font-family:'Bebas Neue';font-size:60px;color:rgba(201,168,76,0.12)">D</span>
+        </div>
+        <div class="merch-overlay">
+          <button class="merch-quick">Quick Add</button>
+        </div>
+      </div>
+      <div class="merch-title">Raycam Heavyweight Tee</div>
+      <div class="merch-price">CAD $45</div>
+    </div>
+    <div class="merch-card">
+      <div class="merch-img">
+        <div class="merch-placeholder" style="background:linear-gradient(135deg,#1a1a14,#242410)">
+          <span class="merch-icon">🧢</span>
+          <span style="font-family:'Bebas Neue';font-size:48px;color:rgba(201,168,76,0.12)">DS</span>
+        </div>
+        <div class="merch-overlay">
+          <button class="merch-quick">Quick Add</button>
+        </div>
+      </div>
+      <div class="merch-title">Gold Logo Snapback</div>
+      <div class="merch-price">CAD $38</div>
+    </div>
+    <div class="merch-card">
+      <div class="merch-img">
+        <div class="merch-placeholder" style="background:linear-gradient(135deg,#141820,#1e2230)">
+          <span class="merch-icon">🧥</span>
+          <span style="font-family:'Bebas Neue';font-size:44px;color:rgba(201,168,76,0.12)">SHINE</span>
+        </div>
+        <div class="merch-overlay">
+          <button class="merch-quick">Quick Add</button>
+        </div>
+      </div>
+      <div class="merch-title">Set Me Free Hoodie</div>
+      <div class="merch-price">CAD $75</div>
+    </div>
+    <div class="merch-card">
+      <div class="merch-img">
+        <div class="merch-placeholder" style="background:linear-gradient(135deg,#1a1010,#2a1818)">
+          <span class="merch-icon">💿</span>
+          <span style="font-family:'Bebas Neue';font-size:36px;color:rgba(201,168,76,0.12)">VINYL</span>
+        </div>
+        <div class="merch-overlay">
+          <button class="merch-quick">Quick Add</button>
+        </div>
+      </div>
+      <div class="merch-title">Raycam Project Vinyl</div>
+      <div class="merch-price">CAD $30</div>
+      <div class="merch-sold-tag">Limited Edition</div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:48px;" class="reveal">
+    <a href="#" class="btn-primary">View Full Store</a>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<div class="signup-section reveal">
+  <p class="section-eyebrow">Stay Connected</p>
+  <h2 class="section-title">Join The List</h2>
+  <p>First access to new music, exclusive merch drops, presale codes, and tour announcements. No spam — just signal.</p>
+  <div class="signup-form">
+    <input type="email" class="signup-input" placeholder="your@email.com" id="emailInput"/>
+    <button class="signup-btn" onclick="handleSignup()">Subscribe</button>
+  </div>
+  <p id="signupMsg" style="font-size:13px;color:var(--gold);margin-top:16px;display:none;">✓ You're in. Welcome to the circle.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="footer-logo">DU<span>SHINE</span></a>
+      <p class="footer-tagline">Burundi-Born. Vancouver-Raised. Global Sound.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Music</h4>
+        <a href="#">Spotify</a>
+        <a href="#">Apple Music</a>
+        <a href="#">YouTube</a>
+        <a href="#">SoundCloud</a>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="#music">Music</a>
+        <a href="#videos">Videos</a>
+        <a href="#tour">Tour</a>
+        <a href="#merch">Merch</a>
+        <a href="#about">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:booking@dushinemusic.com">Booking</a>
+        <a href="mailto:press@dushinemusic.com">Press</a>
+        <a href="#">EPK</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Dushine. All rights reserved.</p>
+    <div class="socials">
+      <a href="https://instagram.com" target="_blank" class="social-btn" title="Instagram">IG</a>
+      <a href="https://twitter.com" target="_blank" class="social-btn" title="Twitter">TW</a>
+      <a href="https://youtube.com" target="_blank" class="social-btn" title="YouTube">YT</a>
+      <a href="https://open.spotify.com" target="_blank" class="social-btn" title="Spotify">SP</a>
+      <a href="https://tiktok.com" target="_blank" class="social-btn" title="TikTok">TT</a>
+    </div>
+  </div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1000;align-items:center;justify-content:center;">
+  <div style="position:relative;width:90%;max-width:900px;">
+    <button onclick="closeVideo()" style="position:absolute;top:-40px;right:0;background:none;border:none;color:white;font-size:24px;cursor:pointer;">✕</button>
+    <div style="aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;">
+      <p style="color:var(--muted);font-size:14px;letter-spacing:2px;text-transform:uppercase;">Video Player — Connect YouTube to embed</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
+});
+
+// NAV SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// PLAYER
+const tracks = [
+  { name: 'Set Me Free', meta: 'Raycam Project · 2024', duration: '3:42', secs: 222 },
+  { name: 'Relationships', meta: 'Single · 2023', duration: '4:01', secs: 241 },
+  { name: 'Raycam (Intro)', meta: 'Raycam Project · 2024', duration: '2:58', secs: 178 },
+  { name: 'Buja to Van', meta: 'Single · 2023', duration: '3:27', secs: 207 },
+  { name: 'No Filter', meta: 'Raycam Project · 2024', duration: '3:55', secs: 235 },
+  { name: 'Legacy', meta: 'Single · 2024', duration: '4:18', secs: 258 },
+];
+let currentTrack = 0, isPlaying = false, progressInterval, elapsed = 0;
+
+// Build viz bars
+const viz = document.getElementById('playerViz');
+for(let i=0;i<24;i++){
+  const b = document.createElement('div');
+  b.className = 'viz-bar';
+  b.style.height = '4px';
+  viz.appendChild(b);
+}
+
+function animateViz() {
+  const bars = viz.querySelectorAll('.viz-bar');
+  bars.forEach(b => {
+    const h = isPlaying ? Math.random()*36+4 : 4;
+    b.style.height = h + 'px';
+  });
+}
+setInterval(animateViz, 120);
+
+function selectTrack(idx) {
+  currentTrack = idx;
+  const t = tracks[idx];
+  document.getElementById('playerName').textContent = t.name;
+  document.getElementById('playerMeta').textContent = t.meta;
+  document.getElementById('playerDuration').textContent = t.duration;
+  document.querySelectorAll('.track-item').forEach((el,i) => el.classList.toggle('active', i===idx));
+  elapsed = 0;
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('playerTime').textContent = '0:00';
+  document.getElementById('playerArt').textContent = t.name.charAt(0);
+  document.getElementById('vinyl').classList.remove('spinning');
+  if(isPlaying) { clearInterval(progressInterval); startProgress(); }
+}
+
+function togglePlay() {
+  isPlaying = !isPlaying;
+  const icon = document.getElementById('playIcon');
+  const vinyl = document.getElementById('vinyl');
+  if(isPlaying) {
+    icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    vinyl.classList.add('spinning');
+    startProgress();
+  } else {
+    icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    vinyl.classList.remove('spinning');
+    clearInterval(progressInterval);
+  }
+}
+
+function startProgress() {
+  clearInterval(progressInterval);
+  const t = tracks[currentTrack];
+  progressInterval = setInterval(() => {
+    elapsed++;
+    if(elapsed >= t.secs) { elapsed = 0; nextTrack(); return; }
+    const pct = (elapsed/t.secs)*100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    const m = Math.floor(elapsed/60), s = elapsed%60;
+    document.getElementById('playerTime').textContent = m + ':' + String(s).padStart(2,'0');
+  }, 1000);
+}
+
+function nextTrack() {
+  selectTrack((currentTrack+1) % tracks.length);
+  if(isPlaying) startProgress();
+}
+function prevTrack() {
+  selectTrack((currentTrack-1+tracks.length) % tracks.length);
+  if(isPlaying) startProgress();
+}
+function seekTo(e) {
+  const bar = document.getElementById('progressBar');
+  const pct = e.offsetX / bar.offsetWidth;
+  elapsed = Math.floor(pct * tracks[currentTrack].secs);
+  document.getElementById('progressFill').style.width = (pct*100) + '%';
+}
+
+// VIDEO
+function openVideo(url) {
+  const modal = document.getElementById('videoModal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeVideo() {
+  document.getElementById('videoModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// SIGNUP
+function handleSignup() {
+  const email = document.getElementById('emailInput').value;
+  if(!email || !email.includes('@')) return;
+  document.getElementById('emailInput').value = '';
+  document.getElementById('signupMsg').style.display = 'block';
+}
+
+// TICKER double for seamless loop
+const tickerInner = document.getElementById('tickerInner');
+tickerInner.innerHTML += tickerInner.innerHTML;
+</script>
+</body>
+</html>
